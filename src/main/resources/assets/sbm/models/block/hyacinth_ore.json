@@ -1,0 +1,6 @@
+{
+	"parent": "block/cube_all",
+	"textures": {
+		"all": "sbm:block/hyacinth_ore"
+	}
+}

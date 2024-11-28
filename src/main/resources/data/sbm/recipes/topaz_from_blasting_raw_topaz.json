@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "cookingtime": 240,
+  "experience": 1,
+  "group": "topaz",
+  "ingredient": {
+    "item": "sbm:raw_topaz"
+  },
+  "result": "sbm:topaz"
+}

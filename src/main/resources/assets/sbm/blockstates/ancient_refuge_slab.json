@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "sbm:block/ancient_refuge_slab"
+    },
+    "type=double": {
+      "model": "sbm:block/ancient_refuge_block"
+    },
+    "type=top": {
+      "model": "sbm:block/ancient_refuge_slab_top"
+    }
+  }
+}

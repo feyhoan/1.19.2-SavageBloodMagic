@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "sbm:item/advanced_scroll_of_savage_blood"
+  }
+}

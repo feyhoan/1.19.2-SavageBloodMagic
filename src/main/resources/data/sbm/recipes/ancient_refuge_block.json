@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#$#",
+    "$#$",
+    "#$#"
+  ],
+  "key": {
+    "$": {
+      "item": "minecraft:deepslate"
+    },
+    "#": {
+      "item": "minecraft:mud"
+    }
+  },
+  "result": {
+    "item": "sbm:ancient_refuge_block",
+    "count": 4
+  }
+}

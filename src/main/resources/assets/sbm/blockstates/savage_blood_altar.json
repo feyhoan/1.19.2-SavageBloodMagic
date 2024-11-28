@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "sbm:block/savage_blood_altar"
+    },
+    "facing=south": {
+      "model": "sbm:block/savage_blood_altar",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "sbm:block/savage_blood_altar",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "sbm:block/savage_blood_altar",
+      "y": 90
+    }
+  }
+}

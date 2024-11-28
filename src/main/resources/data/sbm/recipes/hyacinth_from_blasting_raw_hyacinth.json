@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "cookingtime": 240,
+  "experience": 1,
+  "group": "hyacinth",
+  "ingredient": {
+    "item": "sbm:raw_hyacinth"
+  },
+  "result": "sbm:hyacinth"
+}

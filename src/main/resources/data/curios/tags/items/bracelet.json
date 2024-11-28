@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "sbm:hyacinth_bracelet",
+    "sbm:topaz_bracelet",
+    "sbm:chrysolite_bracelet",
+    "sbm:amethyst_bracelet",
+    "sbm:sapphire_bracelet"
+  ]
+}

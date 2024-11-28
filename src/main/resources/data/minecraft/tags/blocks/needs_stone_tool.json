@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "sbm:ancient_column",
+    "sbm:ancient_refuge_block",
+    "sbm:ancient_refuge_slab",
+    "sbm:ancient_refuge_stairs",
+    "sbm:ancient_refuge_bloody_block"
+  ]
+}

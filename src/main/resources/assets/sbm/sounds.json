@@ -1,0 +1,50 @@
+{
+  "abilities.blood_merging": {
+    "sounds": [
+      "sbm:abilities/blood_merging"
+    ],
+    "subtitle": "subtitles.abilities.sbm.blood_merging"
+  },
+  "abilities.heal_wounds": {
+    "sounds": [
+      "sbm:abilities/heal_wounds"
+    ],
+    "subtitle": "subtitles.abilities.sbm.heal_wounds"
+  },
+  "abilities.arterial_rupture": {
+    "sounds": [
+      "sbm:abilities/arterial_rupture"
+    ],
+    "subtitle": "subtitles.abilities.sbm.arterial_rupture"
+  },
+  "abilities.blood_purification": {
+    "sounds": [
+      "sbm:abilities/blood_purification"
+    ],
+    "subtitle": "subtitles.abilities.sbm.blood_purification"
+  },
+  "abilities.blood_punch": {
+    "sounds": [
+      "sbm:abilities/blood_punch"
+    ],
+    "subtitle": "subtitles.abilities.sbm.blood_punch"
+  },
+  "abilities.blood_mark": {
+    "sounds": [
+      "sbm:abilities/blood_mark"
+    ],
+    "subtitle": "subtitles.abilities.sbm.blood_mark"
+  },
+  "abilities.absorbing_shield": {
+    "sounds": [
+      "sbm:abilities/absorbing_shield"
+    ],
+    "subtitle": "subtitles.abilities.sbm.absorbing_shield"
+  },
+  "abilities.cancel": {
+    "sounds": [
+      "sbm:abilities/cancel"
+    ],
+    "subtitle": "subtitles.abilities.sbm.cancel"
+  }
+}

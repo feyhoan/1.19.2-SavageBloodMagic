@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "sbm:ancient_refuge_block"
+    }
+  },
+  "result": {
+    "item": "sbm:ancient_refuge_stairs",
+    "count": 4
+  }
+}

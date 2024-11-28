@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "sbm:piece_of_frozen_blood"
+    }
+  },
+  "result": {
+    "item": "sbm:frozen_blood_block"
+  }
+}

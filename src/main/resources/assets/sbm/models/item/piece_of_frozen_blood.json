@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "sbm:item/piece_of_frozen_blood"
+  }
+}

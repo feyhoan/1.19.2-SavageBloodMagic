@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " i#",
+    "IIi",
+    "II "
+  ],
+  "key": {
+    "I": {"item": "minecraft:iron_ingot"},
+    "i": {"item": "minecraft:iron_nugget"},
+    "#": {"item": "sbm:sapphire"}
+  },
+  "result": {
+    "item": "sbm:sapphire_ring"
+  }
+}

@@ -1,0 +1,6 @@
+{
+	"parent": "block/cube_all",
+	"textures": {
+		"all": "sbm:block/unbreakable_ancient_refuge_block"
+	}
+}

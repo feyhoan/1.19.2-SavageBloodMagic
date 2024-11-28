@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " ii",
+    "I i",
+    "#I "
+  ],
+  "key": {
+    "I": {"item": "minecraft:gold_ingot"},
+    "i": {"item": "minecraft:gold_nugget"},
+    "#": {"item": "sbm:hyacinth"}
+  },
+  "result": {
+    "item": "sbm:hyacinth_necklace"
+  }
+}

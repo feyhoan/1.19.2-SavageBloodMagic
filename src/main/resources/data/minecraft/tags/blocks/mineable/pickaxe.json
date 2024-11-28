@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "sbm:hyacinth_ore",
+    "sbm:deepslate_hyacinth_ore",
+    "sbm:topaz_ore",
+    "sbm:deepslate_topaz_ore",
+    "sbm:sapphire_ore",
+    "sbm:deepslate_sapphire_ore",
+    "sbm:chrysolite_ore",
+    "sbm:deepslate_chrysolite_ore",
+    "sbm:ancient_refuge_block",
+    "sbm:ancient_refuge_slab",
+    "sbm:ancient_refuge_stairs",
+    "sbm:ancient_refuge_bloody_block"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "sbm:block/ancient_refuge_block",
+    "side": "sbm:block/ancient_refuge_block",
+    "top": "sbm:block/ancient_refuge_block"
+  }
+}
