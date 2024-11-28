@@ -31,8 +31,6 @@ public class AncientColumn extends Block {
         return SHAPE;
     }
 
-    //aaaa
-
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter world, @NotNull List<Component> tooltip, @NotNull TooltipFlag advanced) {
         super.appendHoverText(stack, world, tooltip, advanced);
