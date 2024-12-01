@@ -8,6 +8,8 @@ import net.feyhoan.sbm.item.curios.ring.*;
 import net.feyhoan.sbm.item.custom.AncientGift;
 import net.feyhoan.sbm.item.custom.AncientReaperTier;
 import net.feyhoan.sbm.item.custom.BloodBottleItem;
+import net.feyhoan.sbm.item.custom.FrozenBloodArmor;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -123,7 +125,17 @@ public class ModItems {
     public static final RegistryObject<Item> BOTTLE_OF_ENDER_BLOOD = ITEMS.register("bottle_of_end_blood",
             () -> new BloodBottleItem(new Item.Properties().stacksTo(1).tab(MYTAB)));
 
-
     public static final RegistryObject<Item> ANCIENT_GIFT = ITEMS.register("ancient_gift",
             () -> new AncientGift(new Item.Properties().stacksTo(1).tab(MYTAB)));
+
+
+    //Броня
+    public static final RegistryObject<ArmorItem> FROZEN_BLOOD_CHEST = ITEMS.register("frozen_blood_chestplate",
+            () -> new FrozenBloodArmor(ModArmorMaterials.FROZEN_BLOOD, EquipmentSlot.CHEST, new Item.Properties().stacksTo(1).tab(MYTAB)));
+    public static final RegistryObject<ArmorItem> FROZEN_BLOOD_HELMET = ITEMS.register("frozen_blood_helmet",
+            () -> new FrozenBloodArmor(ModArmorMaterials.FROZEN_BLOOD, EquipmentSlot.HEAD, new Item.Properties().stacksTo(1).tab(MYTAB)));
+    public static final RegistryObject<ArmorItem> FROZEN_BLOOD_LEGS = ITEMS.register("frozen_blood_leggings",
+            () -> new FrozenBloodArmor(ModArmorMaterials.FROZEN_BLOOD, EquipmentSlot.LEGS, new Item.Properties().stacksTo(1).tab(MYTAB)));
+    public static final RegistryObject<ArmorItem> FROZEN_BLOOD_BOOTS = ITEMS.register("frozen_blood_boots",
+            () -> new FrozenBloodArmor(ModArmorMaterials.FROZEN_BLOOD, EquipmentSlot.FEET, new Item.Properties().stacksTo(1).tab(MYTAB)));
 }

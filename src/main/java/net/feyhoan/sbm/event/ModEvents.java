@@ -38,6 +38,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static net.feyhoan.sbm.SBM.LOGGER;
@@ -90,6 +92,14 @@ public class ModEvents {
                 if (event.getEntity() instanceof ServerPlayer player) {
                     player.getCapability(PlayerBloodProvider.PLAYER_BLOOD).ifPresent(blood -> {
                         ModMessages.sendToPlayer(new BloodDataSyncS2CPacket(blood.getMana(), blood.getMaxMana(), blood.getLevel(), blood.getManaRegenTicks()), player);
+                    });
+
+                    player.getCapability(BloodAbilitiesProvider.BLOOD_ABILITIES).ifPresent(cap -> {
+                        List<BloodAbilities> abilities = cap.getAbilities();
+                        for (BloodAbilities ability : abilities) {
+                            ability.setOnCooldown(false);
+                            ability.setActive(false);
+                        }
                     });
                 }
             }

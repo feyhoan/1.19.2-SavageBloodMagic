@@ -35,22 +35,6 @@ public class BloodMerging extends BloodAbilities {
 
     @Override
     public void activate(ServerPlayer player) {
-        if (isOnCooldown()) {
-            player.sendSystemMessage(Component.translatable("sbm.abilities.cooldown", getName()));
-            player.playSound(ModSounds.CANCEL.get());
-            return;
-        }
-        if (isActive()) {
-            player.sendSystemMessage(Component.translatable("sbm.abilities.already_active", getName()));
-            player.playSound(ModSounds.CANCEL.get());
-            return;
-        }
-        if (!player.getCapability(PlayerBloodProvider.PLAYER_BLOOD).map(blood -> blood.getMana() >= getManaCost()).orElse(false)) {
-            player.sendSystemMessage(Component.translatable("sbm.abilities.not_enough_mana"));
-            player.playSound(ModSounds.CANCEL.get());
-            return;
-        }
-
         setActive(true);
 
         applyBloodMergingEffects(player); // Применение эффектов

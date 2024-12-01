@@ -2,9 +2,11 @@ package net.feyhoan.sbm.network.packet;
 
 import net.feyhoan.sbm.CONSTANTS;
 import net.feyhoan.sbm.SBM;
+import net.feyhoan.sbm.blood.PlayerBloodProvider;
 import net.feyhoan.sbm.magic.BloodAbilities;
 import net.feyhoan.sbm.magic.BloodAbilitiesCapability;
 import net.feyhoan.sbm.magic.BloodAbilitiesProvider;
+import net.feyhoan.sbm.sound.ModSounds;
 import net.feyhoan.sbm.util.Utils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -121,6 +123,22 @@ public class AbilityActionPacket {
         player.getCapability(BloodAbilitiesProvider.BLOOD_ABILITIES).ifPresent(cap -> {
             for (BloodAbilities ability : cap.getAbilities()) {
                 if (ability.getName().equals(abilityName)) {
+                    if (ability.isOnCooldown()) {
+                        player.sendSystemMessage(Component.translatable("sbm.abilities.cooldown", ability.getName()));
+                        player.playSound(ModSounds.CANCEL.get());
+                        return;
+                    }
+                    if (ability.isActive()) {
+                        player.sendSystemMessage(Component.translatable("sbm.abilities.already_active", ability.getName()));
+                        player.playSound(ModSounds.CANCEL.get());
+                        return;
+                    }
+                    if (!player.getCapability(PlayerBloodProvider.PLAYER_BLOOD).map(blood -> blood.getMana() >= ability.getManaCost()).orElse(false)) {
+                        player.sendSystemMessage(Component.translatable("sbm.abilities.not_enough_mana"));
+                        player.playSound(ModSounds.CANCEL.get());
+                        return;
+                    }
+
                     cap.activateAbility(player, abilityName);
                     return;
                 }
