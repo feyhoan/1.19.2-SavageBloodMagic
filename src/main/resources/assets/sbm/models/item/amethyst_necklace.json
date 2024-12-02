@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "sbm:item/amethyst_necklace"
+    "layer0": "sbm:item/curios/amethyst_necklace"
   }
 }

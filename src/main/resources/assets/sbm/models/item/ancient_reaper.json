@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "sbm:item/ancient_reaper",
-		"particle": "sbm:item/ancient_reaper"
+		"0": "sbm:item/gear/ancient_reaper",
+		"particle": "sbm:item/gear/ancient_reaper"
 	},
 	"elements": [
 		{

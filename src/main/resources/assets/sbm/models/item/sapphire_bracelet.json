@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "sbm:item/sapphire_bracelet"
+    "layer0": "sbm:item/curios/sapphire_bracelet"
   }
 }

@@ -2,6 +2,6 @@
   "parent": "item/generated",
   "textures":
   {
-    "layer0" : "sbm:item/frozen_blood_chestplate"
+    "layer0" : "sbm:item/gear/frozen_blood_chestplate"
   }
 }
