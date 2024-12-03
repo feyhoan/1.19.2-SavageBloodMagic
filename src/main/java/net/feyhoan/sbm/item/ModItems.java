@@ -6,6 +6,7 @@ import net.feyhoan.sbm.item.curios.necklace.*;
 import net.feyhoan.sbm.item.curios.ring.AmethystRing;
 import net.feyhoan.sbm.item.curios.ring.*;
 import net.feyhoan.sbm.item.custom.*;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -87,6 +88,9 @@ public class ModItems {
     public static final RegistryObject<Item> SAPPHIRE = ITEMS.register("sapphire",
             () -> new Item(new Item.Properties().tab(MYTAB)));
 
+    public static final RegistryObject<Item> WITHERITE = ITEMS.register("witherite",
+            () -> new Item(new Item.Properties().tab(MYTAB)));
+
     //Артефакты
 
     public static final RegistryObject<Item> HYACINTH_RING = ITEMS.register("hyacinth_ring", HyacinthRing::new);
@@ -112,8 +116,17 @@ public class ModItems {
             () -> new SwordItem(AncientReaperTier.INSTANCE, 7, 5f,
                     new Item.Properties().tab(MYTAB).stacksTo(1)));
 
+
+    public static final RegistryObject<Item> DRYING_SWORD = ITEMS.register("drying_sword",
+            () -> new SwordItem(Tiers.WOOD, 1, 1f,
+                    new Item.Properties().tab(MYTAB).stacksTo(1)));
+
+
+    public static final RegistryObject<Item> NETHERITE_VORTEX_HANDLE = ITEMS.register("netherite_vortex_handle",
+            () -> new Item(new Item.Properties().tab(MYTAB).stacksTo(2)));
+
     public static final RegistryObject<Item> NETHERITE_VORTEX_BLADE = ITEMS.register("netherite_vortex_blade",
-            () -> new SwordItem(NetheriteVortexBladeTier.INSTANCE, 5, 6f,
+            () -> new NetheriteVortexBlade(NetheriteVortexBladeTier.INSTANCE, 4, 7.5f,
                     new Item.Properties().tab(MYTAB).stacksTo(1)));
 
     //Бутылки крови

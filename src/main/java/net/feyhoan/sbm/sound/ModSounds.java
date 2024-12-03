@@ -21,6 +21,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> ABSORBING_SHIELD = build("abilities.absorbing_shield");
     public static final RegistryObject<SoundEvent> CANCEL = build("abilities.cancel");
 
+
     private static RegistryObject<SoundEvent> build(String id) {
         return SOUNDS.register(id, () -> new SoundEvent(new ResourceLocation(SBM.MOD_ID, id)));
     }

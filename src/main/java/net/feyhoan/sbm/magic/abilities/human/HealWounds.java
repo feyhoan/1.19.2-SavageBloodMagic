@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -87,8 +88,9 @@ public class HealWounds extends BloodAbilities {
 
             if (amplifier < 0) continue; // Пропускаем, если не совпадает
 
+
             // Создаем пакет и отправляем его на сервер
-            ModMessages.sendToServer(new EffectsC2SPacket(effect, duration, amplifier, false, false, player.getUUID(), true));
+            ModMessages.sendToServer(new EffectsC2SPacket(effect, duration, amplifier, false, false, player.getUUID(), false));
         }
     }
 

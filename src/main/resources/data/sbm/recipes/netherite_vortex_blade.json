@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " $%",
+    " $%",
+    "#  "
+  ],
+  "key": {
+    "#": {"item": "sbm:netherite_vortex_handle"},
+    "$": {"item": "minecraft:iron_ingot"},
+    "%": {"item": "sbm:hyacinth"}
+  },
+  "result": {
+    "item": "sbm:netherite_vortex_blade"
+  }
+}

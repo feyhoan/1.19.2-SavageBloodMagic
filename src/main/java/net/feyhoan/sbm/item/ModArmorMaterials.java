@@ -12,7 +12,7 @@ import net.minecraft.world.level.ItemLike;
 import java.util.function.Supplier;
 
 public enum ModArmorMaterials implements ArmorMaterial {
-    FROZEN_BLOOD("frozen_blood", 37, new int[]{2, 4, 5, 2}, 13, SoundEvents.ARMOR_EQUIP_NETHERITE, 2.2F, 0.1F, () -> {
+    FROZEN_BLOOD("frozen_blood", 37, new int[]{3, 4, 5, 3}, 13, SoundEvents.ARMOR_EQUIP_ELYTRA, 2.4F, 0.1F, () -> {
         return Ingredient.of(new ItemLike[]{ModItems.PIECE_OF_FROZEN_BLOOD.get()});
     });
 

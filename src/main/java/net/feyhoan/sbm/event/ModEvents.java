@@ -20,6 +20,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -136,48 +138,43 @@ public class ModEvents {
             LOGGER.info("Атакован: {} :{}", entity.getName().getString(), event.getAmount());
             if(event.getSource().getEntity() instanceof Player player) {
                 if (player.getMainHandItem().getItem() == KNIFE.get()) {
-                    // Проверяем, какой тип крови можно получить от этого моба
                     if (HUMAN_BLOOD_ENTITIES.contains(entity.getClass())) {
-                        LOGGER.info("Атакован человек: {}", entity.getName().getString());
-                        // Если это человек, то получаем человеческую кровь с шансом 40%
                         if (level.getRandom().nextInt(100) < 20) {
-                            LOGGER.info("Прокатило");
-                            // Проверяем, есть ли в инвентаре игрока бутылка пустая
                             if (hasEmptyBottle(player)) {
                                 player.addItem(BOTTLE_OF_HUMAN_BLOOD.get().getDefaultInstance());
-                            } else {
-                                LOGGER.info("У игрока нет бутылки пустой");
                             }
                         }
-                        LOGGER.info("Не прокатило");
                     } else if (NETHER_BLOOD_ENTITIES.contains(entity.getClass())) {
-                        // Если это адский моб, то получаем адскую кровь с шансом 40%
-                        LOGGER.info("Атакован адский моб: {}", entity.getName().getString());
                         if (level.getRandom().nextInt(100) < 20) {
-                            LOGGER.info("Прокатило");
-                            // Проверяем, есть ли в инвентаре игрока бутылка пустая
                             if (hasEmptyBottle(player)) {
                                 player.addItem(BOTTLE_OF_NETHER_BLOOD.get().getDefaultInstance());
-                            } else {
-                                LOGGER.info("У игрока нет бутылки пустой");
                             }
                         }
-                        LOGGER.info("Не прокатило");
                     } else if (END_BLOOD_ENTITIES.contains(entity.getClass())) {
-                        LOGGER.info("Атакован енд моб: {}", entity.getName().getString());
-                        // Если это дракон, то получаем драконью кровь с шансом 40%
                         if (level.getRandom().nextInt(100) < 20) {
-                            LOGGER.info("Прокатило");
-                            // Проверяем, есть ли в инвентаре игрока бутылка пустая
                             if (hasEmptyBottle(player)) {
                                 player.addItem(BOTTLE_OF_ENDER_BLOOD.get().getDefaultInstance());
-                            } else {
-                                LOGGER.info("У игрока нет бутылки пустой");
                             }
                         }
-                        LOGGER.info("Не прокатило");
                     }
                 }
+                if (player.getMainHandItem().getItem() == DRYING_SWORD.get())
+                {
+                    if (entity instanceof Player player1) {
+                        player1.getCapability(PlayerBloodProvider.PLAYER_BLOOD).ifPresent(cap -> {
+                            if (cap.getLevel() > 0 && level.getRandom().nextInt(10) < 4) {
+                                cap.subMana(level.getRandom().nextInt(15 * cap.getLevel()));
+                                player1.addEffect(new MobEffectInstance(MobEffects.WITHER, 10));
+                                player1.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 40));
+                            }
+                        });
+                    }
+
+                    if (level.getRandom().nextInt(100) < 9) {
+                        player.addItem(PIECE_OF_FROZEN_BLOOD.get().getDefaultInstance());
+                    }
+                }
+
                 player.getCapability(BloodAbilitiesProvider.BLOOD_ABILITIES).ifPresent(cap -> {
                     for (BloodAbilities ability : cap.getAbilities()) {
                         if (ability.getName().equals("BloodMark") && ability.isActive()) {
