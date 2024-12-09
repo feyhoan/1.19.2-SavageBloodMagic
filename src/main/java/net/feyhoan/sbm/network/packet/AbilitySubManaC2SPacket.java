@@ -5,6 +5,8 @@ import net.feyhoan.sbm.blood.PlayerBloodProvider;
 import net.feyhoan.sbm.network.ModMessages;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.UUID;

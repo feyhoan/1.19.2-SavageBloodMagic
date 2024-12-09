@@ -33,6 +33,12 @@ public class ModMessages {
                 .consumerMainThread(BloodDataSyncS2CPacket::handle)
                 .add();
 
+        net.messageBuilder(SpawnParticlePacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SpawnParticlePacket::fromBytes)
+                .encoder(SpawnParticlePacket::toBytes)
+                .consumerMainThread(SpawnParticlePacket::handle)
+                .add();
+
         net.messageBuilder(ScrollUseC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(ScrollUseC2SPacket::fromBytes)
                 .encoder(ScrollUseC2SPacket::toBytes)

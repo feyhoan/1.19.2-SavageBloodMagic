@@ -2,6 +2,8 @@ package net.feyhoan.sbm.util;
 
 import net.feyhoan.sbm.blocks.ModBlocks;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.monster.*;
@@ -11,7 +13,12 @@ import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -52,5 +59,32 @@ public class Utils {
 
     public static int randomColor() {
         return (int) (Math.random() * 0xFFFFFF); // Генерирует случайный 24-битный цвет
+    }
+
+
+    ///Code taken from the mod Vampirism///
+    public static @NotNull HitResult getPlayerLookingSpot(@NotNull Player player, double restriction) {
+        float scale = 1.0F;
+        float pitch = player.xRotO + (player.getXRot() - player.xRotO) * scale;
+        float yaw = player.yRotO + (player.getYRot() - player.yRotO) * scale;
+        double x = player.xo + (player.getX() - player.xo) * scale;
+        double y = player.yo + (player.getY() - player.yo) * scale + 1.62D;
+        double z = player.zo + (player.getZ() - player.zo) * scale;
+        Vec3 vector1 = new Vec3(x, y, z);
+        float cosYaw = Mth.cos(-yaw * 0.017453292F - (float) Math.PI);
+        float sinYaw = Mth.sin(-yaw * 0.017453292F - (float) Math.PI);
+        float cosPitch = -Mth.cos(-pitch * 0.017453292F);
+        float sinPitch = Mth.sin(-pitch * 0.017453292F);
+        float pitchAdjustedSinYaw = sinYaw * cosPitch;
+        float pitchAdjustedCosYaw = cosYaw * cosPitch;
+        double distance = 500D;
+        if (restriction == 0 && player instanceof ServerPlayer) {
+            distance = player.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue() - 0.5f;
+        } else if (restriction > 0) {
+            distance = restriction;
+        }
+
+        Vec3 vector2 = vector1.add(pitchAdjustedSinYaw * distance, sinPitch * distance, pitchAdjustedCosYaw * distance);
+        return player.getCommandSenderWorld().clip(new ClipContext(vector1, vector2, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
     }
 }

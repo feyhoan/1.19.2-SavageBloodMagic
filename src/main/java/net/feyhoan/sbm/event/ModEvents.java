@@ -14,8 +14,11 @@ import net.feyhoan.sbm.network.packet.AbilityActionPacket;
 import net.feyhoan.sbm.network.packet.BloodDataSyncS2CPacket;
 import net.feyhoan.sbm.network.packet.ManaRegenerationPacket;
 import net.feyhoan.sbm.network.packet.ScrollUseC2SPacket;
+import net.feyhoan.sbm.particle.ModParticles;
+import net.feyhoan.sbm.util.AbilityBindingsConfig;
 import net.feyhoan.sbm.util.Utils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -88,6 +91,8 @@ public class ModEvents {
             event.register(BloodAbilitiesCapability.class);
         }
 
+
+
         @SubscribeEvent
         public static void onPlayerJoinWorld(EntityJoinLevelEvent event) {
             if (!event.getLevel().isClientSide()) {
@@ -103,9 +108,14 @@ public class ModEvents {
                             ability.setActive(false);
                         }
                     });
+
+                    AbilityBindingsConfig.loadFromPlayerData(player);
+                    LOGGER.info("подгружены бинди{}", AbilityBindingsConfig.getBinds().toString());
                 }
             }
         }
+
+
 
         @SubscribeEvent
         public static void manaRegeneration(TickEvent.ServerTickEvent event) {

@@ -130,7 +130,7 @@ public class BloodCommands {
 
     private static int bind(CommandContext<CommandSourceStack> ctx, String key, String abilityName) {
         AbilityBindingsConfig.AbilityBindingsKeys abilityBindingsKeys = AbilityBindingsConfig.AbilityBindingsKeys.valueOf(key.toUpperCase());
-        AbilityBindingsConfig.setKeyAbility(abilityBindingsKeys, abilityName);
+        AbilityBindingsConfig.setKeyAbility(abilityBindingsKeys, abilityName, ctx.getSource().getPlayer());
         ctx.getSource().sendSuccess(Component.translatable("sbm.command.bind", abilityBindingsKeys, abilityName).withStyle(ChatFormatting.ITALIC), true);
         return 1;
     }
