@@ -93,7 +93,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> UNBREAKABLE_ANCIENT_REFUGE_BLOCK = registryBlock("unbreakable_ancient_refuge_block",
             () -> new Block(BlockBehaviour.Properties.of(Material.BARRIER).strength(99999)), ModItems.MYTAB);
 
-
+    public static final RegistryObject<Block> CONCENTRATE_EXTRACTOR = registryBlock("concentrate_extractor",
+            () -> new ConcentrateExtractorBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .strength(6f).requiresCorrectToolForDrops().noOcclusion()), ModItems.MYTAB);
 
     private static <T extends Block> RegistryObject<T> registryBlock(String name, Supplier<T> block, CreativeModeTab tab) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

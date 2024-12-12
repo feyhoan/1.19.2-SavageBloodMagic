@@ -38,7 +38,7 @@
 
 
   "sbm.abilities.cooldown": "Способность %s на кулдауне!",
-  "sbm.abilities.not_enough_mana": "Недостаточно маны для способности",
+  "sbm.abilities.not_enough_mana": "Недостаточно маны для способности (%d)",
   "sbm.abilities.activate": "Способность %s активирована!",
   "sbm.abilities.add.error": "Ошибка при добавлении способности: %s",
   "sbm.abilities.add.success": "Способность %s успешно добавлена",
@@ -137,12 +137,15 @@
   "item.sbm.ancient_gift" : "Дар Древних",
   "item.sbm.ancient_gift_ore" : "Повезет в следующий раз! Не отчаивайся последователь!",
   "item.sbm.ancient_gift_ability" : "Твои старания были замечены Древними, используй силу вдумчиво, последователь!",
+  "item.sbm.ancient_gift_not_a_mage": "Вы не являетесь последователем Древних, чтобы им стать ваш уровень магии крови должен быть больше 0!",
   "item.sbm.netherite_vortex_blade" : "Незеритовый вихревой клинок",
   "item.sbm.netherite_vortex_handle": "Рукоятка незеритового верхивого клинка",
   "item.sbm.frozen_blood_helmet" : "Шлем из засохшей крови",
   "item.sbm.frozen_blood_chestplate" : "Нагрудник из засохшей крови",
   "item.sbm.frozen_blood_leggings" : "Поножи из засохшей крови",
   "item.sbm.frozen_blood_boots" : "Ботинки из засохшей крови",
+  "item.sbm.witherite": "Визерит",
+  "item.sbm.soul_concentrate": "Концентрат душ",
 
 
 
@@ -163,5 +166,6 @@
   "block.sbm.unbreakable_ancient_refuge_block": "Нерушимый блок убежища Древних",
   "block.sbm.savage_blood_altar": "Алтарь дикой крови",
   "block.sbm.savage_blood_altar.gift_received": "Вы получили дар алтаря!",
-  "block.sbm.savage_blood_altar.gift_already_received": "Вы уже получили дар этого алтаря!"
+  "block.sbm.savage_blood_altar.gift_already_received":"Вы уже получили дар этого алтаря!",
+  "block.sbm.concentrate_extractor": "Извлекатель концентрата"
 }

@@ -6,10 +6,6 @@
         "min": 0,
         "max": 1
       },
-      "bonus_rolls": {
-        "min": 0,
-        "max": 1
-      },
       "entries": [
         {
           "type": "minecraft:item",
@@ -18,7 +14,7 @@
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.33
+              "chance": 0.27
             }
           ]
         }
@@ -150,26 +146,41 @@
       ]
     },
     {
-      "rolls": 1,
-      "bonus_rolls": 1,
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
       "entries": [
         {
-          "type": "minecraft:group",
-          "children": [
+          "type": "minecraft:item",
+          "name": "sbm:master_scroll_of_savage_blood",
+          "weight": 1,
+          "conditions": [
             {
-              "type": "minecraft:item",
-              "name": "sbm:master_scroll_of_savage_blood",
-              "weight": 1
-            },
+              "condition": "minecraft:random_chance",
+              "chance": 0.33
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "sbm:common_scroll_of_savage_blood",
+          "weight": 2,
+          "conditions": [
             {
-              "type": "minecraft:item",
-              "name": "sbm:common_scroll_of_savage_blood",
-              "weight": 2
-            },
+              "condition": "minecraft:random_chance",
+              "chance": 0.33
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "sbm:advanced_scroll_of_savage_blood",
+          "weight": 1,
+          "conditions": [
             {
-              "type": "minecraft:item",
-              "name": "sbm:advanced_scroll_of_savage_blood",
-              "weight": 1
+              "condition": "minecraft:random_chance",
+              "chance": 0.33
             }
           ]
         }

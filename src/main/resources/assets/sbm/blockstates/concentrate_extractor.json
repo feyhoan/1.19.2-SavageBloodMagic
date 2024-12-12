@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "sbm:block/concentrate_extractor"
+    },
+    "facing=south": {
+      "model": "sbm:block/concentrate_extractor",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "sbm:block/concentrate_extractor",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "sbm:block/concentrate_extractor",
+      "y": 90
+    }
+  }
+}

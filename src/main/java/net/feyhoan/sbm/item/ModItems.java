@@ -143,6 +143,12 @@ public class ModItems {
             () -> new AncientGift(new Item.Properties().stacksTo(1).tab(MYTAB)));
 
 
+    //Концентраты
+
+    public static final RegistryObject<Item> SOUL_CONCENTRATE = ITEMS.register("soul_concentrate",
+            () -> new Item(new Item.Properties().tab(MYTAB)));
+
+
     //Броня
     public static final RegistryObject<ArmorItem> FROZEN_BLOOD_CHEST = ITEMS.register("frozen_blood_chestplate",
             () -> new FrozenBloodArmor(ModArmorMaterials.FROZEN_BLOOD, EquipmentSlot.CHEST, new Item.Properties().stacksTo(1).tab(MYTAB)));

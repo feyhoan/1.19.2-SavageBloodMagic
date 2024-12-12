@@ -134,7 +134,7 @@ public class AbilityActionPacket {
                         return;
                     }
                     if (!player.getCapability(PlayerBloodProvider.PLAYER_BLOOD).map(blood -> blood.getMana() >= ability.getManaCost()).orElse(false)) {
-                        player.sendSystemMessage(Component.translatable("sbm.abilities.not_enough_mana"));
+                        player.sendSystemMessage(Component.translatable("sbm.abilities.not_enough_mana", ability.getManaCost()));
                         player.playSound(ModSounds.CANCEL.get());
                         return;
                     }

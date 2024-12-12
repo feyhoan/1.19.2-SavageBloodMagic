@@ -2,6 +2,9 @@ package net.feyhoan.sbm;
 
 import com.mojang.logging.LogUtils;
 import net.feyhoan.sbm.blocks.ModBlocks;
+import net.feyhoan.sbm.blocks.entity.ConcentrateExtractorScreen;
+import net.feyhoan.sbm.blocks.entity.ModBlockEntities;
+import net.feyhoan.sbm.blocks.entity.ModMenuTypes;
 import net.feyhoan.sbm.effect.ModEffects;
 import net.feyhoan.sbm.loot.ModLootModifiers;
 import net.feyhoan.sbm.network.ModMessages;
@@ -12,6 +15,8 @@ import net.feyhoan.sbm.sound.ModSounds;
 import net.feyhoan.sbm.world.features.ModConfiguredFeatures;
 import net.feyhoan.sbm.world.features.ModPlacedFeatures;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionBrewing;
@@ -52,6 +57,8 @@ public class SBM {
         ModPlacedFeatures.register(modEventBus);
         ModSounds.SOUNDS.register(modEventBus);
         ModParticles.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -71,5 +78,13 @@ public class SBM {
 
     private void registerCommands(RegisterCommandsEvent event) {
         event.getDispatcher().register(BloodCommands.createBloodCommand());
+    }
+
+    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class ClientModEvents {
+        @SubscribeEvent
+        public static void onClientSetup(FMLClientSetupEvent event) {
+            MenuScreens.register(ModMenuTypes.CONCENTRATE_EXTRACTOR_MENU.get(), ConcentrateExtractorScreen::new);
+        }
     }
 }

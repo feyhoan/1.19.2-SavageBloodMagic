@@ -79,7 +79,7 @@ public class BloodLeap extends BloodAbilities {
                 double particleZ = player.getZ() + (index * 0.2) + offsetZ; // Удаляем Z с учетом направления
 
                 // Отправляем пакет на создание частицы
-                ModMessages.sendToPlayer(new SpawnParticlePacket(player.getUUID(), particleX, particleY, particleZ), player);
+                ModMessages.sendToPlayer(new SpawnParticlePacket(player.getUUID(), particleX, particleY, particleZ, "blood_leap"), player);
             }, index*90, TimeUnit.MILLISECONDS); // 90 мс между частицами
         }
     }

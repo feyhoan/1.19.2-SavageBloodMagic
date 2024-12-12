@@ -1,5 +1,6 @@
 package net.feyhoan.sbm.item.custom;
 
+import net.feyhoan.sbm.blood.PlayerBloodProvider;
 import net.feyhoan.sbm.network.ModMessages;
 import net.feyhoan.sbm.network.packet.AbilityActionPacket;
 import net.minecraft.network.chat.Component;
@@ -27,18 +28,23 @@ public class AncientGift extends Item {
     public InteractionResultHolder<ItemStack> use(@NotNull Level world, @NotNull Player player, @NotNull InteractionHand hand) {
         if (!player.level.isClientSide) { // Убедитесь, что код выполняется на сервере
             ItemStack itemInHand = player.getItemInHand(InteractionHand.MAIN_HAND);
-            int chance = random.nextInt(100); // Генерируем случайное число от 0 до 99
-            if (chance < PRECIOUS_ORE_CHANCE) {
-                // Логика получения драгоценных руд
-                player.addItem(Items.DIAMOND.getDefaultInstance()); // Пример получения алмаза, вы можете изменить его на нужные руды
-                player.sendSystemMessage(Component.translatable("item.sbm.ancient_gift_ore"));
-            } else {
-                // Логика для 95% шанса (например, получение другого предмета)
-                ModMessages.sendToServer(new AbilityActionPacket(AbilityActionPacket.AbilityAction.ADD_RANDOM, "none", player.getUUID()));
-                player.sendSystemMessage(Component.translatable("item.sbm.ancient_gift_ability"));
+            if (player.getCapability(PlayerBloodProvider.PLAYER_BLOOD).map(blood -> blood.getLevel() > 0).orElse(false)) {
+                int chance = random.nextInt(100); // Генерируем случайное число от 0 до 99
+                if (chance < PRECIOUS_ORE_CHANCE) {
+                    // Логика получения драгоценных руд
+                    player.addItem(Items.DIAMOND.getDefaultInstance()); // Пример получения алмаза, вы можете изменить его на нужные руды
+                    player.sendSystemMessage(Component.translatable("item.sbm.ancient_gift_ore"));
+                } else {
+                    // Логика для 95% шанса (например, получение другого предмета)
+                    ModMessages.sendToServer(new AbilityActionPacket(AbilityActionPacket.AbilityAction.ADD_RANDOM, "none", player.getUUID()));
+                    player.sendSystemMessage(Component.translatable("item.sbm.ancient_gift_ability"));
+                }
+                // Удаляем гифт после использования
+                itemInHand.shrink(1); // Уменьшаем количество предмета на 1
             }
-            // Удаляем гифт после использования
-            itemInHand.shrink(1); // Уменьшаем количество предмета на 1
+            else {
+                player.sendSystemMessage(Component.translatable("item.sbm.ancient_gift_not_a_mage"));
+            }
         }
         return InteractionResultHolder.pass(player.getItemInHand(hand));
     }

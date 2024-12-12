@@ -39,7 +39,7 @@
 
 
   "sbm.abilities.cooldown": "Ability %s on a cooldown!",
-  "sbm.abilities.not_enough_mana": "Not enough mana for activate ability",
+  "sbm.abilities.not_enough_mana": "Not enough mana for activate ability (%d)",
   "sbm.abilities.already_active": "Ability %s already active!",
   "sbm.abilities.activate": "Ability %s activated!",
   "sbm.abilities.add.error": "Error adding ability: %s",
@@ -138,12 +138,16 @@
   "item.sbm.ancient_gift" : "Ancient Gift",
   "item.sbm.ancient_gift_ore" : "Better luck next time! Don't despair follower!",
   "item.sbm.ancient_gift_ability" : "Your efforts have been noticed by the Ancients, use your power wisely, follower!",
+  "item.sbm.ancient_gift_not_a_mage": "You are not a follower of the Ancients, to become one your blood magic level must be greater than 0!",
   "item.sbm.netherite_vortex_blade" : "Netherite Vortex Blade",
   "item.sbm.netherite_vortex_handle": "Netherite Vortex Handle",
   "item.sbm.frozen_blood_helmet" : "Frozen Blood Helmet",
   "item.sbm.frozen_blood_chestplate" : "Frozen Blood Chestplate",
   "item.sbm.frozen_blood_leggings" : "Frozen Blood Leggings",
   "item.sbm.frozen_blood_boots" : "Frozen Blood Boots",
+  "item.sbm.witherite": "Witherite",
+  "item.sbm.soul_concentrate": "Soul Concentrate",
+
 
 
 
@@ -166,5 +170,6 @@
   "block.sbm.unbreakable_ancient_refuge_block": "Unbreakable Ancient Refuge Block",
   "block.sbm.savage_blood_altar": "Savage Blood Altar",
   "block.sbm.savage_blood_altar.gift_received": "You have received the gift of the altar!",
-  "block.sbm.savage_blood_altar.gift_already_received": "You have already received the gift of this altar!"
+  "block.sbm.savage_blood_altar.gift_already_received": "You have already received the gift of this altar!",
+  "block.sbm.concentrate_extractor": "Concentrate Extractor"
 }
