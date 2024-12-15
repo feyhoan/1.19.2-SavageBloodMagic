@@ -1,6 +1,7 @@
 package net.feyhoan.sbm.event;
 
 import net.feyhoan.sbm.SBM;
+import net.feyhoan.sbm.blocks.custom.SavageBloodAltar;
 import net.feyhoan.sbm.blood.PlayerBlood;
 import net.feyhoan.sbm.blood.PlayerBloodProvider;
 import net.feyhoan.sbm.item.ModItems;
@@ -110,6 +111,7 @@ public class ModEvents {
                     });
 
                     AbilityBindingsConfig.loadFromPlayerData(player);
+                    SavageBloodAltar.loadSavageAltarData(player);
                     LOGGER.info("подгружены бинди{}", AbilityBindingsConfig.getBinds().toString());
                 }
             }

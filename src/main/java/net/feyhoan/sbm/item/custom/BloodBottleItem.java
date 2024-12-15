@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BottleItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,6 +41,7 @@ public class BloodBottleItem extends BottleItem {
             player.swing(hand);
             return InteractionResultHolder.success(player.getItemInHand(hand));
         }
+        player.addItem(Items.GLASS_BOTTLE.getDefaultInstance());
         return InteractionResultHolder.pass(player.getItemInHand(hand));
     }
 }

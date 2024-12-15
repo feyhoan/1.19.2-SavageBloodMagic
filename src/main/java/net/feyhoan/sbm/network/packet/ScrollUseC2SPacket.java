@@ -3,12 +3,15 @@ package net.feyhoan.sbm.network.packet;
 import net.feyhoan.sbm.SBM;
 import net.feyhoan.sbm.blood.PlayerBloodProvider;
 import net.feyhoan.sbm.network.ModMessages;
+import net.feyhoan.sbm.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -23,6 +26,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
 
 import static net.feyhoan.sbm.item.ModItems.*;
+import static net.feyhoan.sbm.util.Utils.LevelUpParticles;
 
 public class ScrollUseC2SPacket {
 
@@ -71,18 +75,19 @@ public class ScrollUseC2SPacket {
                 // Уровень свитка соответствует уровню игрока +1
                 if (currentLevel < 5) { // Предполагаем, что 5 - максимальный уровень
                     levelUpPlayer(player, level);
+                    heldItem.shrink(1);
                 } else {
                     player.sendSystemMessage(Component.translatable(MAX_LEVEL).withStyle(ChatFormatting.RED));
-                    FailParticles(player, level);
+                    FailParticles(player);
                 }
             } else {
                 // Проверим, ниже ли уровень игрока, чем уровень свитка
                 int requiredLevel = currentLevel + 1; // Уровень, требуемый для свитка
                 if (currentLevel >= requiredLevel) {
                     player.sendSystemMessage(Component.translatable(ALREADY_REACHED).withStyle(ChatFormatting.RED));
-                    FailParticles(player, level);
+                    FailParticles(player);
                 } else {
-                    FailParticles(player, level);
+                    FailParticles(player);
                     player.sendSystemMessage(Component.translatable(LEVEL_TOO_LOW).withStyle(ChatFormatting.RED));
                 }
             }
@@ -105,41 +110,25 @@ public class ScrollUseC2SPacket {
     private static void levelUpPlayer(ServerPlayer player, ServerLevel level) {
         player.getCapability(PlayerBloodProvider.PLAYER_BLOOD).ifPresent(blood -> {
                 blood.levelUp(); // Повышаем уровень
-                BloodParticles(player, level);
+                LevelUpParticles(player);
                 player.sendSystemMessage(Component.translatable(LEVEL_UP, blood.getLevel()).withStyle(ChatFormatting.DARK_RED));
                 // Синхронизация данных игрока
-                ModMessages.sendToPlayer(new BloodDataSyncS2CPacket(blood.getMana(), blood.getMaxMana(), blood.getLevel(), blood.getManaRegenTicks()), (ServerPlayer) player);
+                ModMessages.sendToPlayer(new BloodDataSyncS2CPacket(blood.getMana(), blood.getMaxMana(), blood.getLevel(), blood.getManaRegenTicks()), player);
 
         });
     }
 
-    private static void BloodParticles(ServerPlayer player, ServerLevel level) {
-        int particleCount = 200;
-        for (int i = 0; i < particleCount; i++) {
-            double offsetX = (Math.random() - 0.5) * 1;
-            double offsetY = (Math.random() - 0.5) * 1;
-            double offsetZ = (Math.random() - 0.5) * 1;
 
-            level.addParticle(ParticleTypes.CRIMSON_SPORE,
-                    player.getX() + offsetX,
-                    player.getY() + offsetY + player.getEyeHeight(),
-                    player.getZ() + offsetZ,
-                    0, 0, 0);
-        }
-    }
 
-    private static void FailParticles(Player player, ServerLevel level) {
+    private static void FailParticles(ServerPlayer player) {
         int particleCount = 20;
         for (int i = 0; i < particleCount; i++) {
             double offsetX = (Math.random() - 0.5) * 0.5;
             double offsetY = (Math.random() - 0.5) * 0.5;
             double offsetZ = (Math.random() - 0.5) * 0.5;
 
-            level.addParticle(ParticleTypes.SQUID_INK,
-                    player.getX() + offsetX,
-                    player.getY() + offsetY + player.getEyeHeight(),
-                    player.getZ() + offsetZ,
-                    0, 0, 0);
+            ModMessages.sendToPlayer(new SpawnParticlePacket(player.getUUID(), player.getX() + offsetX, player.getY() + offsetY, player.getZ() + offsetZ, "fail"), player);
+            player.getLevel().playSound(null, player.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 0.3F, 1.0F);
         }
     }
 

@@ -1,6 +1,8 @@
 package net.feyhoan.sbm.util;
 
 import net.feyhoan.sbm.blocks.ModBlocks;
+import net.feyhoan.sbm.network.ModMessages;
+import net.feyhoan.sbm.network.packet.SpawnParticlePacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -86,5 +88,27 @@ public class Utils {
 
         Vec3 vector2 = vector1.add(pitchAdjustedSinYaw * distance, sinPitch * distance, pitchAdjustedCosYaw * distance);
         return player.getCommandSenderWorld().clip(new ClipContext(vector1, vector2, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
+    }
+
+    public static void LevelUpParticles(ServerPlayer player) {
+        int particleCount = 10;
+        for (int i = 0; i < particleCount; i++) {
+            double offsetX = (Math.random() - 0.5) * 1;
+            double offsetY = (Math.random() - 0.5) * 1;
+            double offsetZ = (Math.random() - 0.5) * 1;
+
+            ModMessages.sendToPlayer(new SpawnParticlePacket(player.getUUID(), player.getX() + offsetX, player.getY() + offsetY, player.getZ() + offsetZ, "level_up"), player);
+        }
+    }
+
+    public static void LevelDownParticles(ServerPlayer player) {
+        int particleCount = 10;
+        for (int i = 0; i < particleCount; i++) {
+            double offsetX = (Math.random() - 0.5) * 1;
+            double offsetY = (Math.random() - 0.5) * 1;
+            double offsetZ = (Math.random() - 0.5) * 1;
+
+            ModMessages.sendToPlayer(new SpawnParticlePacket(player.getUUID(), player.getX() + offsetX, player.getY() + offsetY+ 0.5, player.getZ() + offsetZ, "level_down"), player);
+        }
     }
 }

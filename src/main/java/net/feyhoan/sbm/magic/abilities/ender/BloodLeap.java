@@ -5,12 +5,14 @@ import net.feyhoan.sbm.magic.BloodAbilities;
 import net.feyhoan.sbm.network.ModMessages;
 import net.feyhoan.sbm.network.packet.AbilitySubManaC2SPacket;
 import net.feyhoan.sbm.network.packet.SpawnParticlePacket;
+import net.feyhoan.sbm.sound.ModSounds;
 import net.feyhoan.sbm.util.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.feyhoan.sbm.CONSTANTS;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
@@ -55,14 +57,16 @@ public class BloodLeap extends BloodAbilities {
 
 
         setActive(true);
-        ModMessages.sendToServer(new AbilitySubManaC2SPacket(getManaCost(), player.getUUID()));
-
         spawnParticles(player);
-        teleportPlayer(player);
+        boolean teleported = teleportPlayer(player); // Добавьте возврат значения
         spawnParticles(player);
-
         setActive(false);
-        startCooldown();
+
+        if (teleported) {
+            ModMessages.sendToServer(new AbilitySubManaC2SPacket(getManaCost(), player.getUUID()));
+            player.getLevel().playSound(null, player.blockPosition(), SoundEvents.NOTE_BLOCK_BASS, SoundSource.PLAYERS, 0.6F, 1.0F);
+            startCooldown();
+        }
     }
     // Метод для создания частиц за игроком
     private void spawnParticles(ServerPlayer player) {
@@ -92,14 +96,14 @@ public class BloodLeap extends BloodAbilities {
         }, getCooldown(), TimeUnit.SECONDS);
     }
 
-    public void teleportPlayer(ServerPlayer player) {
+    public boolean teleportPlayer(ServerPlayer player) {
         HitResult target = Utils.getPlayerLookingSpot(player, 20);
         double ox = player.getX();
         double oy = player.getY();
         double oz = player.getZ();
         if (target.getType() == HitResult.Type.MISS) {
             player.playSound(SoundEvents.NOTE_BLOCK_BASS, 1, 1);
-            return;
+            return false;
         }
         BlockPos pos = null;
         if (target.getType() == HitResult.Type.BLOCK) {
@@ -129,10 +133,11 @@ public class BloodLeap extends BloodAbilities {
         if (pos == null) {
             player.setPos(ox, oy, oz);
             player.playSound(SoundEvents.NOTE_BLOCK_BASEDRUM, 1, 1);
-            return;
+            return false;
         }
 
         player.disconnect();
         player.teleportTo(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);
+        return true;
     }
 }

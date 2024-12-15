@@ -18,6 +18,14 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> BLOOD_MARK_PARTICLE =
             PARTICLE_TYPES.register("blood_mark_particle", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> FAIL_PARTICLE =
+            PARTICLE_TYPES.register("fail_particle", () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> LEVEL_UP_PARTICLE =
+            PARTICLE_TYPES.register("level_up_particle", () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> LEVEL_DOWN_PARTICLE =
+            PARTICLE_TYPES.register("level_down_particle", () -> new SimpleParticleType(true));
 
 
     public static void register(IEventBus eventBus) {

@@ -11,8 +11,7 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-import static net.feyhoan.sbm.particle.ModParticles.BLOOD_LEAP_PARTICLE;
-import static net.feyhoan.sbm.particle.ModParticles.BLOOD_MARK_PARTICLE;
+import static net.feyhoan.sbm.particle.ModParticles.*;
 
 public class SpawnParticlePacket {
     private final UUID playerId;
@@ -67,6 +66,12 @@ public class SpawnParticlePacket {
                 return BLOOD_LEAP_PARTICLE.get();
             case "blood_mark":
                 return BLOOD_MARK_PARTICLE.get();
+            case "fail":
+                return FAIL_PARTICLE.get();
+            case "level_up":
+                return LEVEL_UP_PARTICLE.get();
+            case "level_down":
+                return LEVEL_DOWN_PARTICLE.get();
             default:
                 return null;
         }

@@ -15,8 +15,8 @@ public class BloodAbilitiesCapability {
     private static final Random RANDOM = new Random();
 
     public void addAbility(BloodAbilities ability) {
-        // Проверяем, есть ли уже такая способность
-        if (!abilities.contains(ability)) {
+        // Проверяем, есть ли уже такая способность по имени
+        if (abilities.stream().noneMatch(existingAbility -> existingAbility.getName().equals(ability.getName()))) {
             abilities.add(ability);
         } else {
             // Выводим сообщение, если способность уже есть
@@ -94,13 +94,12 @@ public class BloodAbilitiesCapability {
         return false;
     }
 
-    public void addRandomAbility() {
+    public AbilityAddResult addRandomAbility() {
         List<String> allAbilities = new ArrayList<>();
         allAbilities.addAll(enderAbilities);
         allAbilities.addAll(netherAbilities);
         allAbilities.addAll(humanAbilities);
 
-        // Фильтруем списки, чтобы оставить только те, которые игрок не имеет
         List<String> availableAbilities = new ArrayList<>();
         for (String abilityName : allAbilities) {
             if (!hasAbility(abilityName)) {
@@ -108,15 +107,15 @@ public class BloodAbilitiesCapability {
             }
         }
 
-        // Если есть доступные способности, добавляем случайную
         if (!availableAbilities.isEmpty()) {
             String randomAbilityName = availableAbilities.get(RANDOM.nextInt(availableAbilities.size()));
-            // Создаем экземпляр способности по имени
             BloodAbilities newAbility = createAbilityInstance(randomAbilityName);
             if (newAbility != null) {
                 addAbility(newAbility);
+                return new AbilityAddResult(true, randomAbilityName); // Возвращаем true и имя способности
             }
         }
+        return new AbilityAddResult(false, null); // Возвращаем false и null если способность не добавлена
     }
 
     private static String getAbilityClassName(String className) {

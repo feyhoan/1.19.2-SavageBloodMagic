@@ -147,6 +147,8 @@ public class ModItems {
 
     public static final RegistryObject<Item> SOUL_CONCENTRATE = ITEMS.register("soul_concentrate",
             () -> new Item(new Item.Properties().tab(MYTAB)));
+    public static final RegistryObject<Item> WITHERITE_CONCENTRATE = ITEMS.register("witherite_concentrate",
+            () -> new Item(new Item.Properties().tab(MYTAB)));
 
 
     //Броня

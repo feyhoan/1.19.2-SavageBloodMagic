@@ -13,7 +13,7 @@ public class ModPotions {
     public static final DeferredRegister<Potion> POTIONS =
             DeferredRegister.create(ForgeRegistries.POTIONS, SBM.MOD_ID);
 
-    //public static final RegistryObject<Potion> NEGR_POTION = POTIONS.register("negr_potion",
+    //public static final RegistryObject<Potion> R_POTION = POTIONS.register("r_potion",
     //        () -> new Potion(new MobEffectInstance(MobEffects.DARKNESS, 60, 3), new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 3)));
 
     public static void register(IEventBus eventBus) {

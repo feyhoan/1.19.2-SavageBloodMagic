@@ -17,6 +17,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -142,26 +143,19 @@ public class ConcentrateExtractorBlockEntity extends BlockEntity implements Menu
     public static void tick(Level level, BlockPos pos, BlockState state, ConcentrateExtractorBlockEntity pEntity) {
         if (level.isClientSide()) {
             return;
-        }
-
-        if (hasRecipe(pEntity)) {
-            pEntity.progress++;
-            setChanged(level, pos, state);
-
-            // Получаем случайные смещения для спавна частиц
+        }    if (hasAnyRecipe(pEntity)) { // Проверяем, есть ли хотя бы один действующий рецепт
+            pEntity.progress++;        setChanged(level, pos, state);        // Получаем случайные смещения для спавна частиц
             double offsetX = (level.random.nextDouble() - 0.5) * 2; // Случайное смещение по X
-            double offsetZ = (level.random.nextDouble() - 0.5) * 2; // Случайное смещение по Z
-
-            // Спавн частиц чуть выше блока и в центре
-            ModMessages.sendToClients(new SpawnParticlePacket(UUID.randomUUID(), pos.getX() + offsetX - 0.5, pos.getY() + 1.5, pos.getZ() + offsetZ, "blood_mark"));
-
-            if (pEntity.progress >= pEntity.maxProgress) {
-                craftItem(pEntity);
+            double offsetZ = (level.random.nextDouble() - 0.5) * 2; // Случайное смещение по Z        // Спавн частиц чуть выше блока и в центре
+            ModMessages.sendToClients(new SpawnParticlePacket(UUID.randomUUID(), pos.getX() + offsetX - 0.8, pos.getY() + 1.5, pos.getZ() + offsetZ, "blood_mark"));        if (pEntity.progress >= pEntity.maxProgress) {
+                craftItem(pEntity); // Пытаемся создать предмет
             }
         } else {
-            pEntity.resetProgress();
-            setChanged(level, pos, state);
+            pEntity.resetProgress(); // Если нет рецептов, сбрасываем прогресс
         }
+    }// Проверка на наличие хотя бы одного действующего рецепта
+    private static boolean hasAnyRecipe(ConcentrateExtractorBlockEntity entity) {
+        return hasRecipe(entity, "SOUL_CONCENTRATE") || hasRecipe(entity, "WITHERITE_CONCENTRATE");
     }
 
     private void resetProgress() {
@@ -169,36 +163,67 @@ public class ConcentrateExtractorBlockEntity extends BlockEntity implements Menu
     }
 
     private static void craftItem(ConcentrateExtractorBlockEntity pEntity) {
-        if (hasRecipe(pEntity)) {
-            // Удаляем один песок душ из первого слота (индекс 0)
-            pEntity.itemHandler.extractItem(0, 1, false);
-            // Удаляем одну бутылочку из третьего слота, если это необходимо
-            pEntity.itemHandler.extractItem(2, 1, false);
+        for (String recipe : new String[]{"SOUL_CONCENTRATE", "WITHERITE_CONCENTRATE"}) {
+            if (hasRecipe(pEntity, recipe)) {
+                // Удаляем один песок душ из первого слота (индекс 0)
+                pEntity.itemHandler.extractItem(0, 1, false);
+                // Удаляем одну бутылочку из третьего слота, если это необходимо
+                pEntity.itemHandler.extractItem(2, 1, false);
+                pEntity.itemHandler.extractItem(3, 1, false);
 
-            pEntity.itemHandler.extractItem(3, 1, false);
-            // Добавляем сосредоточенное вещество в выходной слот (индекс 1)
-            pEntity.itemHandler.setStackInSlot(1, new ItemStack(ModItems.SOUL_CONCENTRATE.get(),
-                    pEntity.itemHandler.getStackInSlot(1).getCount() + 1));
-            // Сбрасываем прогресс
-            pEntity.resetProgress();
+                ItemStack resultStack;
+
+                // В зависимости от рецепта выбираем, какой предмет добавлять в выходной слот
+                if (recipe.equals("SOUL_CONCENTRATE")) {
+                    resultStack = new ItemStack(ModItems.SOUL_CONCENTRATE.get(),
+                            pEntity.itemHandler.getStackInSlot(1).getCount() + 1);
+                } else if (recipe.equals("WITHERITE_CONCENTRATE")) {
+                    resultStack = new ItemStack(ModItems.WITHERITE_CONCENTRATE.get(),
+                            pEntity.itemHandler.getStackInSlot(1).getCount() + 1);
+                } else {
+                    continue; // В случае если рецепт не распознан
+                }
+
+                // Добавляем сосредоточенное вещество в выходной слот (индекс 1)
+                pEntity.itemHandler.setStackInSlot(1, resultStack);
+
+                // Сбрасываем прогресс
+                pEntity.resetProgress();
+                return; // Выход из функции после успешного крафта
+            }
         }
     }
 
-    private static boolean hasRecipe(ConcentrateExtractorBlockEntity entity) {
+    private static boolean hasRecipe(ConcentrateExtractorBlockEntity entity, String recipe) {
         SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
         for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
 
-        boolean hasSoulSandInFirstSlot = entity.itemHandler.getStackInSlot(0).getItem() == Items.SOUL_SAND;
-        boolean hasBottleInSecondSlot = entity.itemHandler.getStackInSlot(2).getItem() == Items.SOUL_SOIL;
-        boolean hasFuelInFourthSlot = entity.itemHandler.getStackInSlot(3).getItem() == Items.COAL ||
+        boolean hasFuelInFourthSlot =
+                entity.itemHandler.getStackInSlot(3).getItem() == Items.COAL ||
                 entity.itemHandler.getStackInSlot(3).getItem() == Items.CHARCOAL ||
                 entity.itemHandler.getStackInSlot(3).getItem() == Items.LAVA_BUCKET;
 
-        return hasSoulSandInFirstSlot && hasBottleInSecondSlot && hasFuelInFourthSlot &&
-                canInsertAmountIntoOutputSlot(inventory) &&
-                canInsertItemIntoOutputSlot(inventory, new ItemStack(ModItems.SOUL_CONCENTRATE.get(), 0));
+        switch (recipe) {
+            case "SOUL_CONCENTRATE":
+                boolean hasSoulSandInFirstSlot = entity.itemHandler.getStackInSlot(0).getItem() == Items.SOUL_SAND;
+                boolean hasSoulSoilInSecondSlot = entity.itemHandler.getStackInSlot(2).getItem() == Items.SOUL_SOIL;
+
+
+                return hasSoulSandInFirstSlot && hasSoulSoilInSecondSlot && hasFuelInFourthSlot &&
+                        canInsertAmountIntoOutputSlot(inventory) &&
+                        canInsertItemIntoOutputSlot(inventory, new ItemStack(ModItems.SOUL_CONCENTRATE.get(), 0));
+
+            case "WITHERITE_CONCENTRATE":
+                boolean hasSoulConcentrate = entity.itemHandler.getStackInSlot(0).getItem() == ModItems.SOUL_CONCENTRATE.get();
+                boolean hasNetherStar = entity.itemHandler.getStackInSlot(2).getItem() == Items.NETHER_STAR;
+
+                return hasSoulConcentrate && hasNetherStar && hasFuelInFourthSlot &&
+                        canInsertAmountIntoOutputSlot(inventory) &&
+                        canInsertItemIntoOutputSlot(inventory, new ItemStack(ModItems.WITHERITE_CONCENTRATE.get(), 0));
+        }
+        return false;
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack stack) {

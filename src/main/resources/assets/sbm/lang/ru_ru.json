@@ -146,6 +146,9 @@
   "item.sbm.frozen_blood_boots" : "Ботинки из засохшей крови",
   "item.sbm.witherite": "Визерит",
   "item.sbm.soul_concentrate": "Концентрат душ",
+  "item.sbm.witherite_concentrate": "Концентрат визерита",
+  "item.sbm.drying_sword": "Иссущающий меч",
+
 
 
 
@@ -159,7 +162,9 @@
   "block.sbm.deepslate_chrysolite_ore": "Глубинная хризолитовая руда",
   "block.sbm.frozen_blood_block": "Блок застывшей крови",
   "block.sbm.ancient_column": "Колонна древних",
+  "block.sbm.ancient_column.tooltip": "Повышает скорость регенерации маны в небольшом радиусе",
   "block.sbm.ancient_refuge_block": "Блок убежища Древних",
+  "block.sbm.ancient_refuge_bloody_block": "Окрававленный блок убежища Древних",
   "block.sbm.ancient_refuge_slab": "Плита убежища Древних",
   "block.sbm.ancient_refuge_stairs": "Ступеньки убежища Древних",
   "block.sbm.ancient_refuge.tooltip": "Для магов крови: +4 здоровья",

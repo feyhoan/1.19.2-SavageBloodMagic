@@ -3,6 +3,7 @@ package net.feyhoan.sbm.network.packet;
 import net.feyhoan.sbm.CONSTANTS;
 import net.feyhoan.sbm.SBM;
 import net.feyhoan.sbm.blood.PlayerBloodProvider;
+import net.feyhoan.sbm.magic.AbilityAddResult;
 import net.feyhoan.sbm.magic.BloodAbilities;
 import net.feyhoan.sbm.magic.BloodAbilitiesCapability;
 import net.feyhoan.sbm.magic.BloodAbilitiesProvider;
@@ -73,7 +74,16 @@ public class AbilityActionPacket {
                         addAbility(packet.abilityName, player);
                         break;
                     case ADD_RANDOM:
-                        player.getCapability(BloodAbilitiesProvider.BLOOD_ABILITIES).ifPresent(BloodAbilitiesCapability::addRandomAbility);
+                        player.getCapability(BloodAbilitiesProvider.BLOOD_ABILITIES).ifPresent(capability -> {
+                            AbilityAddResult result = capability.addRandomAbility();
+                            if (result.isAdded()) {
+                                String addedAbilityName = result.getAbilityName();
+                                player.sendSystemMessage(Component.translatable("sbm.abilities.add.success", addedAbilityName));
+                            }
+                            else{
+                                player.sendSystemMessage(Component.translatable("sbm.abilities.add.error"));
+                            }
+                        });
                         break;
                     case GET:
                         player.getCapability(BloodAbilitiesProvider.BLOOD_ABILITIES).ifPresent(cap -> {

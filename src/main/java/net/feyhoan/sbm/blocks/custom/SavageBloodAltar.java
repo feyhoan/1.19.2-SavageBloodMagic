@@ -37,7 +37,7 @@ import java.util.Set;
 
 public class SavageBloodAltar extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    private final Map<BlockPos, Set<String>> interactedPlayersByAltar = new HashMap<>();
+    private static final Map<BlockPos, Set<String>> interactedPlayersByAltar = new HashMap<>();
 
     public SavageBloodAltar(Properties properties) {
         super(properties);
@@ -70,22 +70,56 @@ public class SavageBloodAltar extends Block {
         builder.add(FACING);
     }
 
+    public CompoundTag saveSavageAltarToNBT(Set<String> interactedPlayers) {
+        CompoundTag compoundTag = new CompoundTag();
+        for (String playerUUID : interactedPlayers) {
+            compoundTag.putString(playerUUID, playerUUID); // Сохраняем UUID игрока
+        }
+        return compoundTag;
+    }
+
+    // Метод для загрузки данных о взаимодействии с алтарем
+    public static Set<String> loadSavageAltarFromNBT(CompoundTag compound) {
+        Set<String> interactedPlayers = new HashSet<>();
+        for (String playerUUID : compound.getAllKeys()) {
+            interactedPlayers.add(compound.getString(playerUUID));
+        }
+        return interactedPlayers;
+    }
+
+    // Сохранение данных игрока
+    public void saveSavageAltarData(Player player) {
+        BlockPos pos = player.blockPosition(); // Получаем позицию игрока
+        Set<String> interactedPlayers = interactedPlayersByAltar.getOrDefault(pos, new HashSet<>());
+        CompoundTag nbtData = saveSavageAltarToNBT(interactedPlayers); // Сохраняем текущее состояние
+        player.getPersistentData().put("SavageBloodAltarData", nbtData); // Сохраняем в данных игрока
+    }
+
+    // Загрузка данных игрока
+    public static void loadSavageAltarData(Player player) {
+        if (player.getPersistentData().contains("SavageBloodAltarData")) {
+            CompoundTag nbtData = player.getPersistentData().getCompound("SavageBloodAltarData");
+            Set<String> interactedPlayers = loadSavageAltarFromNBT(nbtData);
+            interactedPlayersByAltar.put(player.blockPosition(), interactedPlayers); // Загружаем для текущей позиции игрока
+        }
+    }
+
+    // Обновление метода use
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (!world.isClientSide) {
             String playerUUID = player.getStringUUID();
-            // Получаем множество UUID для данного алтаря
             Set<String> interactedPlayers = interactedPlayersByAltar.computeIfAbsent(pos, k -> new HashSet<>());
 
             // Проверяем, не получал ли игрок подарок от этого алтаря
             if (!interactedPlayers.contains(playerUUID)) {
-                // Воспроизводим звук
+                // Логика получения подарка от алтаря (звуки, награды и так далее)
                 world.playSound(null, pos, SoundEvents.BEACON_POWER_SELECT, SoundSource.BLOCKS, 1.0F, 1.0F);
-
-                // Добавляем подарок игроку
                 player.addItem(ModItems.ANCIENT_GIFT.get().getDefaultInstance());
-                // Добавляем UUID игрока в множество для данного алтаря
+
+                // Сохраняем данные о взаимодействии
                 interactedPlayers.add(playerUUID);
+                saveSavageAltarData(player); // Сохранение состояния для игрока
                 player.sendSystemMessage(Component.translatable("block.sbm.savage_blood_altar.gift_received"));
             } else {
                 player.sendSystemMessage(Component.translatable("block.sbm.savage_blood_altar.gift_already_received"));

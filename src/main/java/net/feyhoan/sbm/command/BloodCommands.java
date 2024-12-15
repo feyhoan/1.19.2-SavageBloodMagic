@@ -27,9 +27,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
+
+import static net.feyhoan.sbm.util.Utils.LevelDownParticles;
+import static net.feyhoan.sbm.util.Utils.LevelUpParticles;
 
 
 @Mod.EventBusSubscriber(modid = SBM.MOD_ID)
@@ -41,10 +43,6 @@ public class BloodCommands {
     public static LiteralArgumentBuilder<CommandSourceStack> createBloodCommand() {
         return Commands.literal("sbm")
                 .then(Commands.literal("get-stat").executes(BloodCommands::getStats))
-                .then(Commands.literal("level")
-                        .then(Commands.literal("up").executes(BloodCommands::levelUp))
-                        .then(Commands.literal("down").executes(BloodCommands::levelDown))
-                )
                 .then(Commands.literal("set")
                         .then(Commands.argument("type", StringArgumentType.word())
                                 .suggests((context, builder) -> {
@@ -146,46 +144,6 @@ public class BloodCommands {
         return Command.SINGLE_SUCCESS;
     }
 
-    private static int levelUp(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        return changeLevel(context, true);
-    }
-
-    private static int levelDown(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        return changeLevel(context, false);
-    }
-
-    private static int changeLevel(CommandContext<CommandSourceStack> context, boolean levelUp) throws CommandSyntaxException {
-        PlayerBlood blood = getPlayerBlood(context);
-        try {
-            if (levelUp) {
-                blood.levelUp();
-            } else {
-                blood.levelDown();
-            }
-            int newLevel = blood.getLevel();
-            if (newLevel < MIN_LEVEL) {
-                context.getSource().sendSuccess(Component.translatable("sbm.command.level_cannot_be_less_than_min", MIN_LEVEL)
-                        .withStyle(ChatFormatting.YELLOW), true);
-            }
-            if (newLevel > MAX_LEVEL) {
-                context.getSource().sendSuccess(Component.translatable("sbm.command.level_cannot_be_more_than_max", MAX_LEVEL)
-                        .withStyle(ChatFormatting.YELLOW), true);
-            }
-            if (newLevel == 0) {
-                context.getSource().sendSuccess(Component.translatable("sbm.command.no_longer_blood_mage").withStyle(ChatFormatting.DARK_RED), true);
-                blood.setMana(0);
-            } else if (levelUp && newLevel == MAX_LEVEL) {
-                context.getSource().sendSuccess(Component.translatable("sbm.command.maxlevelnotice").withStyle(ChatFormatting.YELLOW), true);
-                context.getSource().sendSuccess(Component.translatable("sbm.command.levelup.congratulations", newLevel, blood.getMaxMana()).withStyle(ChatFormatting.YELLOW), false);
-            } else {
-                context.getSource().sendSuccess(Component.translatable(levelUp ? "sbm.command.levelup.congratulations" : "sbm.command.leveldown.level_decreased", newLevel, blood.getMaxMana()), true);
-            }
-            sendUpdateToServer(blood, context);
-        } catch (Exception e) {
-            context.getSource().sendSuccess(Component.translatable("sbm.command.error", e.getMessage()), true);
-        }
-        return Command.SINGLE_SUCCESS;
-    }
 
     private static void sendUpdateToServer(PlayerBlood blood, CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
@@ -195,9 +153,26 @@ public class BloodCommands {
     private static int setValue(CommandContext<CommandSourceStack> context, BiConsumer<PlayerBlood, Integer> setter) throws CommandSyntaxException {
         PlayerBlood blood = getPlayerBlood(context);
         int amount = IntegerArgumentType.getInteger(context, "amount");
+        int currentLevel = blood.getLevel(); // assuming a getLevel() method exists
+
+        // Check which attribute is being set
+        String type = StringArgumentType.getString(context, "type").toLowerCase();
+        if (type.equals("level")) {
+            // Compare levels
+            if (amount < currentLevel) {
+                context.getSource().sendSuccess(Component.translatable("sbm.command.leveldown.level_decreased", amount, blood.getMaxMana()), true);
+                LevelDownParticles(context.getSource().getPlayer());
+            } else if (amount > currentLevel) {
+                context.getSource().sendSuccess(Component.translatable("sbm.command.levelup.congratulations", amount, blood.getMaxMana()), true);
+                LevelUpParticles(context.getSource().getPlayer());
+            }
+        }
+
+        // Set the new value
         setter.accept(blood, amount);
         context.getSource().sendSuccess(Component.translatable("sbm.command.set_value_success", amount)
                 .withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD), true);
+
         sendUpdateToServer(blood, context);
         return Command.SINGLE_SUCCESS;
     }

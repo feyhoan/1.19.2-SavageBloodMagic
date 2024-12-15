@@ -147,7 +147,8 @@
   "item.sbm.frozen_blood_boots" : "Frozen Blood Boots",
   "item.sbm.witherite": "Witherite",
   "item.sbm.soul_concentrate": "Soul Concentrate",
-
+  "item.sbm.witherite_concentrate": "Witherite Concentrate",
+  "item.sbm.drying_sword": "Drying Sword",
 
 
 
@@ -163,7 +164,9 @@
   "block.sbm.deepslate_chrysolite_ore": "Deepslate Chrysolite Ore",
   "block.sbm.frozen_blood_block": "Frozen Blood Block",
   "block.sbm.ancient_column": "Ancient Column",
+  "block.sbm.ancient_column.tooltip": "Increases mana regeneration rate in a small radius",
   "block.sbm.ancient_refuge_block": "Ancient Refuge Block",
+  "block.sbm.ancient_refuge_bloody_block": "Ancient Refuge Bloody Block",
   "block.sbm.ancient_refuge_slab": "Ancient Refuge Slab",
   "block.sbm.ancient_refuge_stairs": "Ancient Refuge Stairs",
   "block.sbm.ancient_refuge.tooltip": "For Blood Mages: +4 health",
