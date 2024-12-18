@@ -1,14 +1,15 @@
 package net.feyhoan.sbm.event;
 
 import net.feyhoan.sbm.SBM;
+import net.feyhoan.sbm.magic.AbilitiesBindingsProvider;
 import net.feyhoan.sbm.network.ModMessages;
 import net.feyhoan.sbm.network.packet.AbilityActionPacket;
-import net.feyhoan.sbm.particle.ModParticles;
-import net.feyhoan.sbm.util.AbilityBindingsConfig;
+import net.feyhoan.sbm.network.packet.AbilityActionRequestPacket;
 import net.feyhoan.sbm.util.KeyBinding;
+import net.feyhoan.sbm.util.Utils;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
@@ -24,19 +25,19 @@ public class ClientEvents {
         public static void onKeyInput(InputEvent.Key event) {
             assert Minecraft.getInstance().player != null;
 
-            AbilityBindingsConfig.AbilityBindingsKeys[] keys = AbilityBindingsConfig.AbilityBindingsKeys.values();
-            KeyMapping[] keyBindings = new KeyMapping[]{ KeyBinding.FIRST_ABILITY_KEY, KeyBinding.SECOND_ABILITY_KEY, KeyBinding.THIRD_ABILITY_KEY, KeyBinding.FOURTH_ABILITY_KEY };
+            Utils.AbilityBindingsKeys[] keys = Utils.AbilityBindingsKeys.values();
+            KeyMapping[] keyBindings = new KeyMapping[]{
+                    KeyBinding.FIRST_ABILITY_KEY,
+                    KeyBinding.SECOND_ABILITY_KEY,
+                    KeyBinding.THIRD_ABILITY_KEY,
+                    KeyBinding.FOURTH_ABILITY_KEY
+            };
 
             for (int i = 0; i < keys.length; i++) {
                 if (keyBindings[i].consumeClick()) {
-                    UUID playerUUID = Minecraft.getInstance().player.getUUID();
-                    String abilityName = AbilityBindingsConfig.getAbilityName(keys[i]);
-                    if (abilityName != null) {
-                        ModMessages.sendToServer(new AbilityActionPacket(AbilityActionPacket.AbilityAction.ACTIVATE, abilityName, playerUUID));
-                        SBM.LOGGER.info("Пакет отправлен {}, АКТИВАТЕ!", Minecraft.getInstance().player.getName());
-                    } else {
-                        SBM.LOGGER.info("Клавиша {} не забинжена", keys[i].name());
-                    }
+                    // Отправляем индекс способности на сервер
+                    ModMessages.sendToServer(new AbilityActionRequestPacket(i));
+                    SBM.LOGGER.info("Запрос на активацию способности {} отправлен на сервер.", keys[i].name());
                 }
             }
         }

@@ -12,12 +12,13 @@ import net.feyhoan.sbm.CONSTANTS;
 import net.feyhoan.sbm.SBM;
 import net.feyhoan.sbm.blood.PlayerBlood;
 import net.feyhoan.sbm.blood.PlayerBloodProvider;
+import net.feyhoan.sbm.magic.AbilitiesBindingsProvider;
 import net.feyhoan.sbm.magic.BloodAbilities;
 import net.feyhoan.sbm.magic.BloodAbilitiesProvider;
 import net.feyhoan.sbm.network.ModMessages;
 import net.feyhoan.sbm.network.packet.AbilityActionPacket;
 import net.feyhoan.sbm.network.packet.BloodDataSyncS2CPacket;
-import net.feyhoan.sbm.util.AbilityBindingsConfig;
+import net.feyhoan.sbm.network.packet.SetBindPacket;
 import net.feyhoan.sbm.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -94,21 +95,28 @@ public class BloodCommands {
                 .then(Commands.literal("bind")
                         .then(Commands.argument("key", StringArgumentType.word())
                                 .suggests((context, builder) -> {
-                                    // Добавление подсказок для аргумента "action"
+                                    // Добавление подсказок для аргумента "key"
                                     return suggestBind(builder);
                                 })
                                 .then(Commands.argument("abilityName", StringArgumentType.string())
                                         .suggests((context, builder) -> {
-                                            // Добавление подсказок для аргумента "action"
+                                            // Добавление подсказок для аргумента "abilityName"
                                             return suggestPlayerAbilities(builder, context);
                                         })
-                                        .executes(ctx -> bind(ctx, ctx.getArgument("key", String.class), ctx.getArgument("abilityName", String.class)))
+                                        .executes(ctx -> {
+                                            String key = ctx.getArgument("key", String.class);
+                                            String abilityName = ctx.getArgument("abilityName", String.class);
+                                            bind(ctx, key, abilityName); // Вызов метода bind
+                                            return 1; // Возвращаем 1, чтобы указать на успешное выполнение
+                                        })
                                 )
                         )
                 )
                 .then(Commands.literal("get-binds")
-                        .executes(BloodCommands::getBinds
-                        )
+                        .executes(ctx -> {
+                            getBinds(ctx); // Вызов метода getBinds
+                            return 1; // Возвращаем 1, чтобы указать на успешное выполнение
+                        })
                 );
     }
 
@@ -126,16 +134,23 @@ public class BloodCommands {
         });
     }
 
-    private static int bind(CommandContext<CommandSourceStack> ctx, String key, String abilityName) {
-        AbilityBindingsConfig.AbilityBindingsKeys abilityBindingsKeys = AbilityBindingsConfig.AbilityBindingsKeys.valueOf(key.toUpperCase());
-        AbilityBindingsConfig.setKeyAbility(abilityBindingsKeys, abilityName, ctx.getSource().getPlayer());
-        ctx.getSource().sendSuccess(Component.translatable("sbm.command.bind", abilityBindingsKeys, abilityName).withStyle(ChatFormatting.ITALIC), true);
-        return 1;
+    private static void bind(CommandContext<CommandSourceStack> ctx, String key, String abilityName) {
+        Utils.AbilityBindingsKeys abilityBindingsKey = Utils.AbilityBindingsKeys.valueOf(key.toUpperCase());
+        ModMessages.sendToServer(new SetBindPacket(abilityBindingsKey, abilityName, ctx.getSource().getPlayer().getUUID()));
+        ctx.getSource().sendSuccess(Component.translatable("sbm.command.bind", abilityBindingsKey, abilityName).withStyle(ChatFormatting.ITALIC), true);
     }
 
-    private static int getBinds(CommandContext<CommandSourceStack> ctx) {
-        ctx.getSource().sendSuccess(Component.translatable("sbm.command.get_binds", AbilityBindingsConfig.getBinds()).withStyle(ChatFormatting.ITALIC), true);
-        return 1;
+    private static void getBinds(CommandContext<CommandSourceStack> ctx) {
+        StringBuilder binds = new StringBuilder(); // Создаем StringBuilder для сбора биндов
+        ctx.getSource().getPlayer().getCapability(AbilitiesBindingsProvider.ABILITIES_BINDINGS).ifPresent(cap -> {
+            cap.getBinds().forEach((key, value) -> {
+                binds.append(key.name()).append(": ").append(value).append(", "); // Форматируем строку
+            });
+        });
+        if (!binds.isEmpty()) {
+            binds.setLength(binds.length() - 2);
+        }
+        ctx.getSource().sendSuccess(Component.translatable("sbm.command.get_binds", binds.toString()).withStyle(ChatFormatting.ITALIC), true);
     }
 
     private static int getStats(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {

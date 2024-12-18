@@ -4,23 +4,13 @@ import net.feyhoan.sbm.SBM;
 import net.feyhoan.sbm.blocks.custom.SavageBloodAltar;
 import net.feyhoan.sbm.blood.PlayerBlood;
 import net.feyhoan.sbm.blood.PlayerBloodProvider;
-import net.feyhoan.sbm.item.ModItems;
 import net.feyhoan.sbm.item.curios.FullSetBuff;
-import net.feyhoan.sbm.magic.BloodAbilities;
-import net.feyhoan.sbm.magic.BloodAbilitiesCapability;
-import net.feyhoan.sbm.magic.BloodAbilitiesProvider;
+import net.feyhoan.sbm.magic.*;
 import net.feyhoan.sbm.magic.abilities.nether.BloodMark;
 import net.feyhoan.sbm.network.ModMessages;
-import net.feyhoan.sbm.network.packet.AbilityActionPacket;
 import net.feyhoan.sbm.network.packet.BloodDataSyncS2CPacket;
-import net.feyhoan.sbm.network.packet.ManaRegenerationPacket;
 import net.feyhoan.sbm.network.packet.ScrollUseC2SPacket;
-import net.feyhoan.sbm.particle.ModParticles;
-import net.feyhoan.sbm.util.AbilityBindingsConfig;
 import net.feyhoan.sbm.util.Utils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.ParticleEngine;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -36,17 +26,13 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static net.feyhoan.sbm.SBM.LOGGER;
 import static net.feyhoan.sbm.item.ModItems.*;
@@ -65,6 +51,9 @@ public class ModEvents {
                 if (!event.getObject().getCapability(BloodAbilitiesProvider.BLOOD_ABILITIES).isPresent()) {
                     event.addCapability(new ResourceLocation(SBM.MOD_ID, "ability-properties"), new BloodAbilitiesProvider());
                 }
+                if (!event.getObject().getCapability(AbilitiesBindingsProvider.ABILITIES_BINDINGS).isPresent()) {
+                    event.addCapability(new ResourceLocation(SBM.MOD_ID, "ability_bindings-properties"), new AbilitiesBindingsProvider());
+                }
             }
         }
 
@@ -82,6 +71,11 @@ public class ModEvents {
                         newStore.copyFrom(oldStore);
                     });
                 });
+                event.getOriginal().getCapability(AbilitiesBindingsProvider.ABILITIES_BINDINGS).ifPresent(oldStore -> {
+                    event.getEntity().getCapability(AbilitiesBindingsProvider.ABILITIES_BINDINGS).ifPresent(newStore -> {
+                        newStore.copyFrom(oldStore);
+                    });
+                });
                 event.getOriginal().invalidateCaps();
             }
         }
@@ -90,6 +84,7 @@ public class ModEvents {
         public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
             event.register(PlayerBlood.class);
             event.register(BloodAbilitiesCapability.class);
+            event.register(AbilityBindingsCapability.class);
         }
 
 
@@ -110,9 +105,7 @@ public class ModEvents {
                         }
                     });
 
-                    AbilityBindingsConfig.loadFromPlayerData(player);
                     SavageBloodAltar.loadSavageAltarData(player);
-                    LOGGER.info("подгружены бинди{}", AbilityBindingsConfig.getBinds().toString());
                 }
             }
         }

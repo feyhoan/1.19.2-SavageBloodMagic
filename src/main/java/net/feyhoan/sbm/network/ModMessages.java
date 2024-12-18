@@ -70,6 +70,18 @@ public class ModMessages {
                 .encoder(AbilityActionPacket::toBytes)
                 .consumerMainThread(AbilityActionPacket::handle)
                 .add();
+
+        net.messageBuilder(SetBindPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SetBindPacket::fromBytes)
+                .encoder(SetBindPacket::toBytes)
+                .consumerMainThread(SetBindPacket::handle)
+                .add();
+
+        net.messageBuilder(AbilityActionRequestPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(AbilityActionRequestPacket::fromBytes)
+                .encoder(AbilityActionRequestPacket::toBytes)
+                .consumerMainThread(AbilityActionRequestPacket::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {

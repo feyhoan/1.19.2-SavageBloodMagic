@@ -37,6 +37,9 @@ public class Utils {
     );
     public static final List<Class<? extends LivingEntity>> END_BLOOD_ENTITIES = Arrays.asList(EnderDragon.class, EnderMan.class);
 
+    public enum AbilityBindingsKeys {
+        FIRST, SECOND, THIRD, FOURTH
+    }
 
     public static boolean hasAncientColumnAroundThem(Player player, Level level) {
         return level.getBlockStates(player.getBoundingBox().inflate(13))
