@@ -16,13 +16,10 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
-
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Supplier;
-
 import static net.feyhoan.sbm.blocks.ModBlocks.ANCIENT_REFUGE_BLOCK;
-
 
 public class AncientRefugeStairs extends StairBlock {
 

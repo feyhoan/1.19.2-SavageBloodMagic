@@ -1,23 +1,14 @@
 package net.feyhoan.sbm.effect.custom;
 
-import net.feyhoan.sbm.SBM;
 import net.feyhoan.sbm.blood.PlayerBloodProvider;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-
 import javax.annotation.Nullable;
-import java.util.UUID;
 
 public class BlessingOfTheAncients extends MobEffect {
     public BlessingOfTheAncients(MobEffectCategory category, int duration) {

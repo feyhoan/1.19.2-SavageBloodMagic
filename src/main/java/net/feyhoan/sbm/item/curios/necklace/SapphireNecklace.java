@@ -13,10 +13,8 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
-
 import java.util.List;
 import java.util.UUID;
-
 import static net.feyhoan.sbm.item.ModItems.MYTAB;
 
 public class SapphireNecklace extends Item implements ICurioItem,SpeedIncreasingItem {

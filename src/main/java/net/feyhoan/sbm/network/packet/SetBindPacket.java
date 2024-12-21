@@ -1,11 +1,8 @@
 package net.feyhoan.sbm.network.packet;
 
 import net.feyhoan.sbm.magic.AbilitiesBindingsProvider;
-import net.feyhoan.sbm.magic.AbilityAddResult;
-import net.feyhoan.sbm.magic.BloodAbilitiesProvider;
 import net.feyhoan.sbm.util.Utils;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 

@@ -9,8 +9,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.Random;
 
-
-
 public class HyacinthBuff {
     private static final Random random = new Random();
     @SubscribeEvent

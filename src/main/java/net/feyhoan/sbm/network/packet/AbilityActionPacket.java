@@ -16,7 +16,6 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
-import static net.feyhoan.sbm.CONSTANTS.*;
 
 import java.util.ArrayList;
 import java.util.List;

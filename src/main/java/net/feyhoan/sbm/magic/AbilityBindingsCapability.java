@@ -3,9 +3,6 @@ package net.feyhoan.sbm.magic;
 import net.feyhoan.sbm.SBM;
 import net.feyhoan.sbm.util.Utils;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.player.Player;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 

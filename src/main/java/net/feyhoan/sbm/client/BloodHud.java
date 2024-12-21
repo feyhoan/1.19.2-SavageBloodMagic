@@ -2,8 +2,6 @@ package net.feyhoan.sbm.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.feyhoan.sbm.SBM;
-import net.feyhoan.sbm.network.ModMessages;
-import net.feyhoan.sbm.network.packet.BloodDataSyncS2CPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -13,7 +11,6 @@ import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import com.mojang.blaze3d.systems.RenderSystem;
-
 
 @Mod.EventBusSubscriber(modid = SBM.MOD_ID)
 public class BloodHud {

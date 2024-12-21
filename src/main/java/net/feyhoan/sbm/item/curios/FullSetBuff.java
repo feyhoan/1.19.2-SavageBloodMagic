@@ -1,14 +1,9 @@
 package net.feyhoan.sbm.item.curios;
 
-import net.feyhoan.sbm.blood.PlayerBloodProvider;
-import net.feyhoan.sbm.network.ModMessages;
-import net.feyhoan.sbm.network.packet.BloodDataSyncS2CPacket;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.util.LazyOptional;
@@ -20,9 +15,7 @@ import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
-
 import java.util.*;
-
 
 @Mod.EventBusSubscriber
 public class FullSetBuff {

@@ -1,22 +1,17 @@
 package net.feyhoan.sbm.event;
 
 import net.feyhoan.sbm.SBM;
-import net.feyhoan.sbm.magic.AbilitiesBindingsProvider;
 import net.feyhoan.sbm.network.ModMessages;
-import net.feyhoan.sbm.network.packet.AbilityActionPacket;
 import net.feyhoan.sbm.network.packet.AbilityActionRequestPacket;
 import net.feyhoan.sbm.util.KeyBinding;
 import net.feyhoan.sbm.util.Utils;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.UUID;
 
 public class ClientEvents {
     @Mod.EventBusSubscriber(modid = SBM.MOD_ID, value = Dist.CLIENT)

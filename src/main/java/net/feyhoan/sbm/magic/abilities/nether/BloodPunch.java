@@ -1,6 +1,5 @@
 package net.feyhoan.sbm.magic.abilities.nether;
 
-
 import net.feyhoan.sbm.blood.PlayerBloodProvider;
 import net.feyhoan.sbm.magic.BloodAbilities;
 import net.feyhoan.sbm.network.ModMessages;
@@ -9,11 +8,9 @@ import net.feyhoan.sbm.sound.ModSounds;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 import static net.feyhoan.sbm.CONSTANTS.BLOODPUNCH_COOLDOWN;
 import static net.feyhoan.sbm.CONSTANTS.BLOODPUNCH_MANACOST;
 

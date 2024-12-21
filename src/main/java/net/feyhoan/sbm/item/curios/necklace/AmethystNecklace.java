@@ -12,9 +12,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
-
 import java.util.List;
-
 import static net.feyhoan.sbm.item.ModItems.MYTAB;
 
 public class AmethystNecklace extends Item implements ICurioItem,ManaIncreasingItem {

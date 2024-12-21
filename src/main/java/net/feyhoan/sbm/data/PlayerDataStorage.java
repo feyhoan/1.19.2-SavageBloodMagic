@@ -2,7 +2,6 @@ package net.feyhoan.sbm.data;
 
 import net.feyhoan.sbm.SBM;
 import net.minecraft.nbt.CompoundTag;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;

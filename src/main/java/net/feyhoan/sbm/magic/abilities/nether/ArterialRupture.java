@@ -5,7 +5,6 @@ import net.feyhoan.sbm.magic.BloodAbilities;
 import net.feyhoan.sbm.network.ModMessages;
 import net.feyhoan.sbm.network.packet.AbilitySubManaC2SPacket;
 import net.feyhoan.sbm.sound.ModSounds;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -17,7 +16,6 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 import static net.feyhoan.sbm.CONSTANTS.ARTERIALRUPTURE_COOLDOWN;
 import static net.feyhoan.sbm.CONSTANTS.ARTERIALRUPTURE_MANACOST;
 

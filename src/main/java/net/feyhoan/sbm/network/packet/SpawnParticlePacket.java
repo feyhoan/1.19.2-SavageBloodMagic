@@ -1,6 +1,5 @@
 package net.feyhoan.sbm.network.packet;
 
-import net.feyhoan.sbm.particle.ModParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.FriendlyByteBuf;

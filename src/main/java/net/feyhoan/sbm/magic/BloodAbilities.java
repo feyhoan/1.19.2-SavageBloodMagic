@@ -2,8 +2,6 @@ package net.feyhoan.sbm.magic;
 
 import net.minecraft.server.level.ServerPlayer;
 
-import java.util.UUID;
-
 public abstract class BloodAbilities {
     private String name;
     private int cooldown;

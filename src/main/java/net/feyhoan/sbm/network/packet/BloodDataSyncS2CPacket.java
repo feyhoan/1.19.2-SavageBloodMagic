@@ -1,11 +1,7 @@
 package net.feyhoan.sbm.network.packet;
 
-import net.feyhoan.sbm.blood.PlayerBloodProvider;
 import net.feyhoan.sbm.client.ClientBloodData;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;

@@ -31,9 +31,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
 import java.util.List;
-
 import static net.feyhoan.sbm.SBM.LOGGER;
 import static net.feyhoan.sbm.item.ModItems.*;
 import static net.feyhoan.sbm.item.curios.FullSetBuff.amethystSet;

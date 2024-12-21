@@ -12,11 +12,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 import static net.feyhoan.sbm.CONSTANTS.BLOODPURIFICATION_COOLDOWN;
 import static net.feyhoan.sbm.CONSTANTS.BLOODPURIFICATION_MANACOST;
 import static net.minecraft.world.effect.MobEffects.*;

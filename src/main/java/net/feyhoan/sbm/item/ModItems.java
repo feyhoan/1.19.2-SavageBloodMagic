@@ -6,7 +6,6 @@ import net.feyhoan.sbm.item.curios.necklace.*;
 import net.feyhoan.sbm.item.curios.ring.AmethystRing;
 import net.feyhoan.sbm.item.curios.ring.*;
 import net.feyhoan.sbm.item.custom.*;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;

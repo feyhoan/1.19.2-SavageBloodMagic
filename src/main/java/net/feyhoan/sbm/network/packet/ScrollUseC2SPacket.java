@@ -1,11 +1,8 @@
 package net.feyhoan.sbm.network.packet;
 
-import net.feyhoan.sbm.SBM;
 import net.feyhoan.sbm.blood.PlayerBloodProvider;
 import net.feyhoan.sbm.network.ModMessages;
-import net.feyhoan.sbm.sound.ModSounds;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -13,18 +10,12 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.network.NetworkEvent;
-
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
-
 import static net.feyhoan.sbm.item.ModItems.*;
 import static net.feyhoan.sbm.util.Utils.LevelUpParticles;
 

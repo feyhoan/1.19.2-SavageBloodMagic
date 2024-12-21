@@ -1,30 +1,22 @@
 package net.feyhoan.sbm.magic.abilities.human;
 
-import net.feyhoan.sbm.SBM;
-import net.feyhoan.sbm.blood.PlayerBloodProvider;
 import net.feyhoan.sbm.magic.BloodAbilities;
 import net.feyhoan.sbm.network.ModMessages;
 import net.feyhoan.sbm.network.packet.AbilitySubManaC2SPacket;
 import net.feyhoan.sbm.network.packet.EffectsC2SPacket;
 import net.feyhoan.sbm.sound.ModSounds;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.level.Level;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 import static net.feyhoan.sbm.CONSTANTS.BLOODMERGING_COOLDOWN;
 import static net.feyhoan.sbm.CONSTANTS.BLOODMERGING_MANACOST;
 import static net.feyhoan.sbm.util.AbilityUtils.BLOOD_MERGING_EFFECTS;
 import static net.feyhoan.sbm.util.AbilityUtils.getEffectAmplifierBloodMerging;
-import static net.minecraft.world.effect.MobEffects.*;
 
 public class BloodMerging extends BloodAbilities {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);

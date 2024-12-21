@@ -10,11 +10,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 import static net.feyhoan.sbm.CONSTANTS.ABSORBINGSHIELD_COOLDOWN;
 import static net.feyhoan.sbm.CONSTANTS.ABSORBINGSHIELD_MANACOST;
 

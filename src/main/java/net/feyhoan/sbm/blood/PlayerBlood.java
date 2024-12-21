@@ -2,8 +2,6 @@ package net.feyhoan.sbm.blood;
 
 import net.minecraft.nbt.CompoundTag;
 
-import java.util.UUID;
-
 public class PlayerBlood {
     private int mana;
     private int maxmana;

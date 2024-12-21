@@ -26,21 +26,14 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.fml.common.Mod;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
-
 import static net.feyhoan.sbm.util.Utils.LevelDownParticles;
 import static net.feyhoan.sbm.util.Utils.LevelUpParticles;
 
-
 @Mod.EventBusSubscriber(modid = SBM.MOD_ID)
 public class BloodCommands {
-
-    private static final int MIN_LEVEL = 0;
-    private static final int MAX_LEVEL = 5;
-
     public static LiteralArgumentBuilder<CommandSourceStack> createBloodCommand() {
         return Commands.literal("sbm")
                 .then(Commands.literal("get-stat").executes(BloodCommands::getStats))
