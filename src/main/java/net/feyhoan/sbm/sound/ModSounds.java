@@ -16,7 +16,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> BLOOD_PURIFICATION = build("abilities.blood_purification");
     public static final RegistryObject<SoundEvent> BLOOD_MARK = build("abilities.blood_mark");
     public static final RegistryObject<SoundEvent> ARTERIAL_RUPTURE = build("abilities.arterial_rupture");
-    public static final RegistryObject<SoundEvent> ABSORBING_SHIELD = build("abilities.absorbing_shield");
+    public static final RegistryObject<SoundEvent> ABSORBING_SHIELD_START = build("abilities.absorbing_shield_start");
+    public static final RegistryObject<SoundEvent> ABSORBING_SHIELD_END = build("abilities.absorbing_shield_end");
     public static final RegistryObject<SoundEvent> CANCEL = build("abilities.cancel");
 
 

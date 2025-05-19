@@ -35,11 +35,17 @@
     ],
     "subtitle": "subtitles.abilities.sbm.blood_mark"
   },
-  "abilities.absorbing_shield": {
+  "abilities.absorbing_shield_start": {
     "sounds": [
-      "sbm:abilities/absorbing_shield"
+      "sbm:abilities/absorbing_shield_start"
     ],
-    "subtitle": "subtitles.abilities.sbm.absorbing_shield"
+    "subtitle": "subtitles.abilities.sbm.absorbing_shield_start"
+  },
+  "abilities.absorbing_shield_end": {
+    "sounds": [
+      "sbm:abilities/absorbing_shield_end"
+    ],
+    "subtitle": "subtitles.abilities.sbm.absorbing_shield_end"
   },
   "abilities.cancel": {
     "sounds": [

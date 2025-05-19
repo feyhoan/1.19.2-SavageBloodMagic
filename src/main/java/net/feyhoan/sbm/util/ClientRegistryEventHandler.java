@@ -16,6 +16,7 @@ public class ClientRegistryEventHandler {
     public static void onRegisterParticleProviders(RegisterParticleProvidersEvent event) {
         ParticleEngine manager = Minecraft.getInstance().particleEngine;
         manager.register(ModParticles.BLOOD_LEAP_PARTICLE.get(), BloodLeapParticle.Factory::new);
+        manager.register(ModParticles.BLOOD_MERGING_PARTICLE.get(), BloodMergingParticle.Factory::new);
         manager.register(ModParticles.BLOOD_MARK_PARTICLE.get(), BloodMarkParticle.Factory::new);
         manager.register(ModParticles.FAIL_PARTICLE.get(), FailParticle.Factory::new);
         manager.register(ModParticles.LEVEL_UP_PARTICLE.get(), LevelUpParticle.Factory::new);

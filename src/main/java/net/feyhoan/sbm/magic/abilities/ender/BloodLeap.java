@@ -28,26 +28,6 @@ public class BloodLeap extends BloodAbilities {
 
     @Override
     public void activate(ServerPlayer player) {
-        // Проверка на кулдаун
-        if (isOnCooldown()) {
-            player.sendSystemMessage(Component.translatable("sbm.abilities.cooldown", getName()));
-            return;
-        }
-
-        // Проверка, активна ли способность
-        if (isActive()) {
-            player.sendSystemMessage(Component.translatable("sbm.abilities.already_active", getName()));
-            return;
-        }
-
-        // Проверка маны
-        if (!player.getCapability(PlayerBloodProvider.PLAYER_BLOOD).map(blood -> blood.getMana() >= getManaCost()).orElse(false)) {
-            player.sendSystemMessage(Component.translatable("sbm.abilities.not_enough_mana"));
-            return;
-        }
-
-
-
         setActive(true);
         spawnParticles(player);
         boolean teleported = teleportPlayer(player); // Добавьте возврат значения

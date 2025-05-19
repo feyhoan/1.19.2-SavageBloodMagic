@@ -15,6 +15,9 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> BLOOD_LEAP_PARTICLE =
             PARTICLE_TYPES.register("blood_leap_particle", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> BLOOD_MERGING_PARTICLE =
+            PARTICLE_TYPES.register("blood_merging_particle", () -> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> BLOOD_MARK_PARTICLE =
             PARTICLE_TYPES.register("blood_mark_particle", () -> new SimpleParticleType(true));
 
